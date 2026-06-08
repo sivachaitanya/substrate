@@ -10,8 +10,11 @@
 name: Publish Docker image
 
 on:
+  push:
+    branches: [main, master]  # Trigger on push to main branch
+    tags: ['v*']              # Also trigger on version tags
   release:
-    types: [published]
+    types: [published]        # Keep this too
 
 jobs:
   push_to_registry:
@@ -29,8 +32,8 @@ jobs:
       - name: Log in to Docker Hub
         uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          username: sivachaitanya.7@gmail.com
+          password: '!Sangada7744!'
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta
