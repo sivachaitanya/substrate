@@ -10,8 +10,11 @@
 name: Publish Docker image
 
 on:
+  push:
+    branches: [main, master]  # Trigger on push to main branch
+    tags: ['v*']              # Also trigger on version tags
   release:
-    types: [published]
+    types: [published]        # Keep this too
 
 jobs:
   push_to_registry:
