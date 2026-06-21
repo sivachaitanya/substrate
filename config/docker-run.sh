@@ -86,17 +86,11 @@
 
 # ==================== RUN THE NODE======================================
 
-CHAIN_FILE=/aquila-node/config/customSpecRaw.json
-if test -f "$CHAIN_FILE"; then
-  echo "Using $CHAIN_FILE"
+FILE=/aquila-node/config/customSpecRaw.json
+if test -f "$FILE"; then
+    echo "customSpecRaw.json provided"
 else
-  if test -f /aquila-node/config/customSpec.json; then
-    echo "Generating $CHAIN_FILE from /aquila-node/config/customSpec.json"
-    /aquila-node/target/release/node-template build-spec --chain=/aquila-node/config/customSpec.json --raw --disable-default-bootnode > "$CHAIN_FILE"
-  else
-    echo "ERROR: $CHAIN_FILE is missing and /aquila-node/config/customSpec.json was not found."
-    exit 1
-  fi
+  /aquila-node/target/release/node-template build-spec --chain=/aquila-node/config/chainSpec.json --raw --disable-default-bootnode > /aquila-node/config/chainSpecRaw.json
 fi
 
 # nohup ./aquila-node/target/release/node-template \
@@ -115,7 +109,7 @@ fi
 
 nohup /aquila-node/target/release/node-template \
   --base-path /tmp/validator_1 \
-  --chain "$CHAIN_FILE" \
+  --chain /aquila-node/config/customSpecRaw.json \
   --port 30333 \
   --rpc-port 9944 \
   --rpc-cors all \
@@ -143,7 +137,7 @@ rm -rf /aquila-node/config/grandpa-keys.json
 /aquila-node/target/release/node-template \
   --telemetry-url 'wss://telemetry.polkadot.io/submit/ 0' \
 	--base-path /tmp/validator_1 \
-  --chain="$CHAIN_FILE" \
+	--chain=/aquila-node/config/chainSpecRaw.json \
 	--port 30333 \
 	--rpc-port 9944 \
   --rpc-cors all \

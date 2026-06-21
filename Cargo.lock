@@ -4470,7 +4470,6 @@ dependencies = [
  "pallet-nicks",
  "pallet-node-authorization",
  "pallet-provenanceledger",
- "pallet-session",
  "pallet-sudo",
  "pallet-template",
  "pallet-timestamp",
